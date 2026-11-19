@@ -41,6 +41,18 @@ Aplikasi mobile Flutter terhubung dengan situs web backend Django pada PWS melal
 - Pengambilan Data (GET): Ketika aplikasi membuka halaman (seperti katalog makanan, riwayat pesanan, atau dasbor dampak lingkungan), Flutter mengirim HTTP GET ke endpoint Django REST Framework. Backend memvalidasi hak akses, mengambil data dari database, lalu mengubah data model tersebut menjadi format JSON menggunakan Django REST Framework serializers. Objek JSON tersebut kemudian dikonversi menjadi objek Dart di Flutter menggunakan fungsi fromJson untuk ditampilkan pada antarmuka aplikasi.
 - Pengiriman Data (POST): Saat pengguna melakukan aksi penambahan data (seperti membuat pesanan baru atau mencatat log dampak manual), Flutter mengirimkan HTTP POST berisi payload JSON ke API endpoint Django. Web service Django REST Framework memproses validasi input data, menyimpannya ke database, lalu mengembalikan respons status keberhasilan (HTTP 200/201) agar tampilan Flutter dapat langsung diperbarui secara asinkron.
 
+### Daftar Endpoint DRF (proyek web Django di PWS)
+| Modul | Endpoint |
+| --- | --- |
+| Autentikasi | `POST /api/auth/login/`, `POST /api/auth/register/`, `POST /api/auth/logout/`, `GET /api/auth/me/` |
+| Surprise Bag | `GET /api/surprise-bags/` |
+| Order | `GET /api/orders/` |
+| Merchant Store | `GET /api/merchant-stores/` |
+| Community | `GET /api/community/food-hacks/`, `GET /api/community/reviews/` |
+| Eco Impact | `GET /api/eco-impact/logs/` |
+
+Base URL: https://fathir-atha-lastbite-pbp-kelompok-a11.pws.cs.ui.ac.id
+
 ## 6. Tautan Desain Figma
 https://www.figma.com/design/zDAuPEQmxaq2GS0vTwFvXr/LastBite?node-id=0-1&t=iZNwDjawzaXseNsp-1
 
