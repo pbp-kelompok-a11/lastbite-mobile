@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/api_config.dart';
 import '../../core/app_theme.dart';
-import '../../home/home_page.dart';
+import '../../home/screens/home_page.dart';
 import 'register_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -111,7 +111,8 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Icon(Icons.restaurant, size: 64, color: colorScheme.primary),
+                    Icon(Icons.restaurant,
+                        size: 64, color: colorScheme.primary),
                     const SizedBox(height: 12),
                     Text(
                       'LastBite',
@@ -133,9 +134,10 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       textInputAction: TextInputAction.next,
                       autofillHints: const [AutofillHints.username],
-                      validator: (value) => (value == null || value.trim().isEmpty)
-                          ? 'Username wajib diisi'
-                          : null,
+                      validator: (value) =>
+                          (value == null || value.trim().isEmpty)
+                              ? 'Username wajib diisi'
+                              : null,
                     ),
                     const SizedBox(height: 16),
                     TextFormField(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
-import 'auth/auth_gate.dart';
+import 'auth/screens/auth_gate.dart';
 import 'core/app_theme.dart';
 
 void main() {

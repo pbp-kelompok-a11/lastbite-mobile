@@ -11,9 +11,9 @@ import 'package:flutter/foundation.dart';
 /// 4. Debug di emulator Android → http://10.0.2.2:8000
 class ApiConfig {
   ApiConfig._();
-  
+
   static const String productionUrl =
-    'https://fathir-atha-lastbite-pbp-kelompok-a11.pws.cs.ui.ac.id';
+      'https://fathir-atha-lastbite-pbp-kelompok-a11.pws.cs.ui.ac.id';
 
   static const String _overrideUrl = String.fromEnvironment('BASE_URL');
   static const bool _useProd = bool.fromEnvironment('USE_PROD');

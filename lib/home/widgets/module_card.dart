@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../core/app_navigator.dart';
-import '../modules/app_module.dart';
+import '../../core/app_navigator.dart';
+import '../../modules/app_module.dart';
 
 /// Kartu menu modul di Beranda.
 class ModuleCard extends StatelessWidget {
@@ -21,25 +21,22 @@ class ModuleCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CircleAvatar(
                 backgroundColor: colorScheme.primaryContainer,
                 child: Icon(module.icon, color: colorScheme.onPrimaryContainer),
               ),
-              const Spacer(),
+              const SizedBox(height: 16),
               Text(
                 module.title,
                 style: textTheme.titleMedium,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
               ),
               if (module.description.isNotEmpty)
                 Text(
                   module.description,
                   style: textTheme.bodySmall,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
                 ),
             ],
           ),

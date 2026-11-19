@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
-import '../auth/auth_service.dart';
+import '../auth/services/auth_service.dart';
 import '../core/app_navigator.dart';
 import '../modules/app_module.dart';
 import '../modules/module_registry.dart';

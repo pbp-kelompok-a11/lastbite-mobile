@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
-import '../core/api_config.dart';
-import 'screens/login_page.dart';
+import '../../core/api_config.dart';
+import '../screens/login_page.dart';
 
 /// Helper autentikasi yang dipakai di beberapa tempat (drawer, auth gate).
 class AuthService {
