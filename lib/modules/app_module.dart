@@ -9,7 +9,7 @@ class AppModule {
     required this.icon,
     this.description = '',
     this.pic = '',
-    this.pageBuilder,
+    required this.pageBuilder,
   });
 
   /// ID unik, dipakai untuk menandai menu aktif di drawer.
@@ -26,7 +26,6 @@ class AppModule {
   /// Penanggung jawab modul (nama anggota).
   final String pic;
 
-  /// Halaman utama modul. Selama masih `null`, yang tampil adalah
-  /// halaman placeholder.
-  final WidgetBuilder? pageBuilder;
+  /// Setiap modul wajib memiliki halaman utama sendiri.
+  final WidgetBuilder pageBuilder;
 }

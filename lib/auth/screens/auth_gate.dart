@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
-import '../core/api_config.dart';
-import '../home/home_page.dart';
-import 'auth_service.dart';
-import 'screens/login_page.dart';
+import '../../core/api_config.dart';
+import '../../home/screens/home_page.dart';
+import '../services/auth_service.dart';
+import 'login_page.dart';
 
 /// Halaman pertama saat app dibuka.
 /// Kalau masih ada sesi tersimpan dan server bilang sesi itu valid,

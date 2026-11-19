@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
-import '../auth/auth_service.dart';
-import '../core/app_navigator.dart';
-import '../modules/module_registry.dart';
-import '../widgets/app_drawer.dart';
+import '../../auth/services/auth_service.dart';
+import '../../core/app_navigator.dart';
+import '../../modules/module_registry.dart';
+import '../../widgets/app_drawer.dart';
 import '../widgets/module_card.dart';
 
 class HomePage extends StatelessWidget {
@@ -50,18 +50,20 @@ class HomePage extends StatelessWidget {
           const SizedBox(height: 24),
           Text('Menu', style: textTheme.titleMedium),
           const SizedBox(height: 12),
-          GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: appModules.length,
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 220,
-              mainAxisSpacing: 12,
-              crossAxisSpacing: 12,
-              childAspectRatio: 1.1,
-            ),
-            itemBuilder: (context, index) =>
-                ModuleCard(module: appModules[index]),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final columns = (constraints.maxWidth / 220).floor().clamp(1, 4);
+              final width =
+                  (constraints.maxWidth - 12 * (columns - 1)) / columns;
+              return Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: [
+                  for (final module in appModules)
+                    SizedBox(width: width, child: ModuleCard(module: module)),
+                ],
+              );
+            },
           ),
         ],
       ),

@@ -128,9 +128,10 @@ class _RegisterPageState extends State<RegisterPage> {
                         icon: Icons.person_outline,
                       ),
                       textInputAction: TextInputAction.next,
-                      validator: (value) => (value == null || value.trim().isEmpty)
-                          ? 'Username wajib diisi'
-                          : null,
+                      validator: (value) =>
+                          (value == null || value.trim().isEmpty)
+                              ? 'Username wajib diisi'
+                              : null,
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
