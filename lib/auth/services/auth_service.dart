@@ -5,6 +5,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/api_config.dart';
+import '../../home/screens/home_page.dart';
 import '../screens/login_page.dart';
 
 /// Helper autentikasi yang dipakai di beberapa tempat (drawer, auth gate).
@@ -13,11 +14,19 @@ class AuthService {
 
   /// Username user yang sedang login (dari respons login / me).
   static String username(CookieRequest request) {
+    if (!request.loggedIn) return 'Guest';
     final value = request.jsonData['username'];
     return value is String && value.isNotEmpty ? value : 'Pengguna';
   }
 
-  /// Logout ke Django, hapus sesi lokal, lalu kembali ke halaman login.
+  /// Buka login tanpa menghapus Beranda dari riwayat navigasi.
+  static void openLogin(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const LoginPage()),
+    );
+  }
+
+  /// Logout ke Django, hapus sesi lokal, lalu kembali ke Beranda sebagai Guest.
   static Future<void> logout(BuildContext context) async {
     // Ambil semua yang butuh context SEBELUM await.
     final request = context.read<CookieRequest>();
@@ -35,7 +44,7 @@ class AuthService {
     await clearLocalSession(request);
 
     navigator.pushAndRemoveUntil(
-      MaterialPageRoute(builder: (_) => const LoginPage()),
+      MaterialPageRoute(builder: (_) => const HomePage()),
       (route) => false,
     );
     messenger

@@ -5,11 +5,9 @@ import 'package:provider/provider.dart';
 import '../../core/api_config.dart';
 import '../../home/screens/home_page.dart';
 import '../services/auth_service.dart';
-import 'login_page.dart';
 
 /// Halaman pertama saat app dibuka.
-/// Kalau masih ada sesi tersimpan dan server bilang sesi itu valid,
-/// langsung ke Beranda. Kalau tidak, ke halaman login.
+/// Pulihkan sesi jika ada, lalu buka Beranda untuk pengguna maupun Guest.
 class AuthGate extends StatefulWidget {
   const AuthGate({super.key});
 
@@ -18,7 +16,7 @@ class AuthGate extends StatefulWidget {
 }
 
 class _AuthGateState extends State<AuthGate> {
-  late final Future<bool> _sessionFuture;
+  late final Future<void> _sessionFuture;
 
   @override
   void initState() {
@@ -26,33 +24,37 @@ class _AuthGateState extends State<AuthGate> {
     _sessionFuture = _restoreSession(context.read<CookieRequest>());
   }
 
-  Future<bool> _restoreSession(CookieRequest request) async {
-    await request.init();
-    if (!request.loggedIn) return false;
-
+  Future<void> _restoreSession(CookieRequest request) async {
     try {
-      final response = await request.get(ApiConfig.meUrl);
+      await request.init();
+      if (!request.loggedIn) return;
+
+      final response = await request
+          .get(ApiConfig.meUrl)
+          .timeout(const Duration(seconds: 5));
       if (response is Map && response['is_authenticated'] == true) {
         request.jsonData = Map<String, dynamic>.from(response);
-        return true;
+        return;
       }
       // Server menjawab, tapi sesi sudah tidak berlaku.
       await AuthService.clearLocalSession(request);
     } catch (_) {
-      // Server tidak bisa dihubungi / URL salah: arahkan ke login saja.
+      // Tetap buka Beranda sebagai Guest jika pemeriksaan sesi gagal.
+      // Cookie tersimpan dipertahankan agar dapat dicoba pada pembukaan berikutnya.
+      request.loggedIn = false;
+      request.jsonData = {};
     }
-    return false;
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<bool>(
+    return FutureBuilder<void>(
       future: _sessionFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return const _SplashView();
         }
-        return snapshot.data == true ? const HomePage() : const LoginPage();
+        return const HomePage();
       },
     );
   }
