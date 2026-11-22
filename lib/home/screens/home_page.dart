@@ -18,7 +18,16 @@ class HomePage extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('LastBite')),
+      appBar: AppBar(
+        title: const Text('LastBite'),
+        actions: [
+          if (!request.loggedIn)
+            TextButton(
+              onPressed: () => AuthService.openLogin(context),
+              child: const Text('Masuk'),
+            ),
+        ],
+      ),
       drawer: const AppDrawer(currentId: AppNavigator.homeId),
       body: ListView(
         padding: const EdgeInsets.all(16),
